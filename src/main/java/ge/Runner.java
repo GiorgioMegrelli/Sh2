@@ -1,9 +1,9 @@
 package ge;
 
-import ge.core.annotation.reflector.AnnotationReflector;
+import ge.app.Sh2Application;
 
 public class Runner {
     public static void main(String[] args) {
-        AnnotationReflector reflector = new AnnotationReflector();
+        Sh2Application.run();
     }
 }
