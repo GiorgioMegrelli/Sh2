@@ -1,7 +1,9 @@
 package ge;
 
+import ge.core.annotation.reflector.AnnotationReflector;
+
 public class Runner {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        AnnotationReflector reflector = new AnnotationReflector();
     }
 }
