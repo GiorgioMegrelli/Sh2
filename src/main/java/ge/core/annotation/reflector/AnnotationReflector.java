@@ -1,12 +1,12 @@
 package ge.core.annotation.reflector;
 
+import ge.utils.Annotations;
 import ge.utils.ClassSet;
 import ge.utils.Classes;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class AnnotationReflector {
 
@@ -20,50 +20,22 @@ public class AnnotationReflector {
         classes = Classes.loadClassesByPackage(packageName);
     }
 
-    public ClassSet getSubTypesOfClass(Class<?> parentClass) {
-        return classes.stream()
-                .filter(cls -> {
-                    ClassSet parentClasses = collectParentClassesRecursively(cls);
-                    return parentClasses.contains(parentClass);
-                })
-                .collect(ClassSet.collector());
+    public ClassSet getClassesAnnotatedWith(Class<?> annotation) {
+        return filterClassesWith(cls -> {
+            return Annotations.containsAnnotation(cls, annotation);
+        });
     }
 
     public ClassSet getSubTypesOfInterface(Class<?> parentInterface) {
+        return filterClassesWith(cls -> {
+            return Classes.isSubClassOfInterface(cls, parentInterface);
+        });
+    }
+
+    private ClassSet filterClassesWith(Predicate<Class<?>> filter) {
         return classes.stream()
-                .filter(cls -> {
-                    ClassSet parentClasses = collectParentInterfacesRecursively(cls);
-                    return parentClasses.contains(parentInterface);
-                })
+                .filter(filter)
                 .collect(ClassSet.collector());
-    }
-
-    private static ClassSet collectParentClassesRecursively(Class<?> forCls) {
-        ClassSet parentClasses = new ClassSet();
-        Class<?> curr = forCls;
-        while(curr != Object.class) {
-            curr = curr.getSuperclass();
-            parentClasses.add(curr);
-        }
-        return parentClasses;
-    }
-
-    private static ClassSet collectParentInterfacesRecursively(Class<?> forCls) {
-        ClassSet parentInterfaces = new ClassSet();
-        Queue<Class<?>> queue = new LinkedList<>();
-        queue.add(forCls);
-
-        while(!queue.isEmpty()) {
-            Class<?> curr = queue.poll();
-            Class<?>[] interfaces = curr.getInterfaces();
-            for(Class<?> i: interfaces) {
-                if(!parentInterfaces.contains(i)) {
-                    queue.add(i);
-                    parentInterfaces.add(i);
-                }
-            }
-        }
-        return parentInterfaces;
     }
 
 }
