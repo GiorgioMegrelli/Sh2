@@ -5,8 +5,11 @@ import ge.utils.filter.IPathFilter;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 public class Classes {
@@ -43,6 +46,33 @@ public class Classes {
             });
         }
         return classes;
+    }
+
+    public static boolean isSubClassOfInterface(Class<?> cls, Class<?> interfaceCls) {
+        return isSubClassOfInterface(cls, interfaceCls, 1);
+    }
+
+    public static boolean isSubClassOfInterface(Class<?> cls, Class<?> interfaceCls, int depth) {
+        if(depth <= 0) {
+            throw new IllegalArgumentException("Invalid depth: " + depth);
+        }
+
+        Queue<Class<?>> queue = new LinkedList<>();
+        queue.add(cls);
+
+        while(!queue.isEmpty()) {
+            Class<?> curr = queue.poll();
+            if(curr.equals(interfaceCls)) {
+                return true;
+            }
+
+            if(depth > 0) {
+                queue.addAll(Arrays.asList(curr.getInterfaces()));
+                depth--;
+            }
+        }
+
+        return false;
     }
 
 }

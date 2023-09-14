@@ -27,4 +27,20 @@ public class Strings {
         return str.substring(startStr.length());
     }
 
+    public static String camelCaseToSnakeCase(String str) {
+        return camelCaseToSnakeCase(str, '_');
+    }
+
+    public static String camelCaseToSnakeCase(String str, char sep) {
+        StringBuilder builder = new StringBuilder(str.length() * 2);
+        for(int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if(i > 0 && Character.isUpperCase(ch)) {
+                builder.append(sep);
+            }
+            builder.append(Character.toLowerCase(ch));
+        }
+        return builder.toString();
+    }
+
 }

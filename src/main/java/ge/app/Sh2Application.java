@@ -11,7 +11,7 @@ public class Sh2Application {
         } else if(options.isHelp()) {
             // Print help
         } else {
-            Executor.execute(args);
+            new Executor().execute(args);
         }
     }
 
