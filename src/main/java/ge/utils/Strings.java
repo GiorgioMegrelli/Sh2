@@ -2,6 +2,10 @@ package ge.utils;
 
 public class Strings {
 
+    public static boolean isEmpty(String s) {
+        return s == null || s.isEmpty();
+    }
+
     public static String replaceAll(String str, char oldChar, char newChar) {
         if(oldChar == newChar) {
             return str;

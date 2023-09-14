@@ -10,6 +10,9 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 
 public class ClassSet extends HashSet<Class<?>> {
+
+    private static final ClassSetCollector COLLECTOR = new ClassSetCollector();
+
     public static class ClassSetCollector implements Collector<Class<?>, ClassSet, ClassSet> {
         @Override
         public Supplier<ClassSet> supplier() {
@@ -41,6 +44,15 @@ public class ClassSet extends HashSet<Class<?>> {
     }
 
     public static ClassSetCollector collector() {
-        return new ClassSetCollector();
+        return COLLECTOR;
     }
+
+    public static ClassSet merge(ClassSet... classSets) {
+        ClassSet merged = new ClassSet();
+        for(ClassSet classSet: classSets) {
+            merged.addAll(classSet);
+        }
+        return merged;
+    }
+
 }
