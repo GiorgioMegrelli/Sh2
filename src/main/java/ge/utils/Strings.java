@@ -6,6 +6,10 @@ public class Strings {
         return s == null || s.isEmpty();
     }
 
+    public static boolean isBlank(String s) {
+        return s == null || s.trim().isEmpty();
+    }
+
     public static String replaceAll(String str, char oldChar, char newChar) {
         if(oldChar == newChar) {
             return str;
@@ -20,11 +24,15 @@ public class Strings {
     }
 
     public static String replaceStart(String str, String startStr) {
+        return replaceStart(str, startStr, "");
+    }
+
+    public static String replaceStart(String str, String startStr, String newStartStr) {
         int index = str.indexOf(startStr);
         if(index < 0) {
             return str;
         }
-        return str.substring(startStr.length());
+        return newStartStr + str.substring(startStr.length());
     }
 
     public static String camelCaseToSnakeCase(String str) {
