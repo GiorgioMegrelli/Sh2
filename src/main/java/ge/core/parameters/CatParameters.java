@@ -4,7 +4,24 @@ import ge.core.annotation.ParameterField;
 
 public class CatParameters {
 
-    @ParameterField(name = "file-path")
-    public String filePath;
+    private boolean isSize;
+    private String[] arguments;
+
+    @ParameterField(name = "size")
+    public boolean getSize() {
+        return isSize;
+    }
+
+    public void setSize(boolean size) {
+        this.isSize = size;
+    }
+
+    public String[] getArguments() {
+        return arguments;
+    }
+
+    public void setArguments(String[] arguments) {
+        this.arguments = arguments;
+    }
 
 }

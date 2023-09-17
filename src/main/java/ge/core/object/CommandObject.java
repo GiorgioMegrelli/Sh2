@@ -10,7 +10,6 @@ import ge.utils.exception.BadStructureCommandException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CommandObject {
@@ -18,7 +17,7 @@ public class CommandObject {
     private final Class<?> cls;
     private final Command command;
     private final String name;
-    private final Field paramsField;
+    private final Field optionsField;
 
     public CommandObject(Class<?> cls) throws BadStructureCommandException {
         if(!Annotations.containsAnnotation(cls, Command.class)) {
@@ -39,7 +38,7 @@ public class CommandObject {
             }
             throw new BadStructureCommandException(cls.getName(), reason);
         }
-        this.paramsField = paramFields.get(0);
+        this.optionsField = paramFields.get(0);
 
         this.cls = cls;
         this.command = cls.getAnnotation(Command.class);
@@ -66,12 +65,8 @@ public class CommandObject {
 
     public void run() {}
 
-    public void getOptions() {
-        Class<?> type = paramsField.getType();
-        if(type != Object.class) {
-            System.out.println(Arrays.toString(type.getFields()));
-            System.out.println(Arrays.toString(type.getDeclaredFields()));
-        }
+    public Class<?> getOptionsType() {
+        return optionsField.getType();
     }
 
     public String getName() {

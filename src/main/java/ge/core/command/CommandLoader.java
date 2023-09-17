@@ -1,10 +1,8 @@
 package ge.core.command;
 
-import ge.command.CommandInvokable;
 import ge.core.annotation.Command;
 import ge.core.annotation.reflector.AnnotationReflector;
 import ge.core.object.CommandObject;
-import ge.utils.exception.BadStructureCommandException;
 import ge.utils.exception.CommandNameDuplicateException;
 
 import java.util.HashMap;
@@ -23,7 +21,6 @@ public class CommandLoader {
                 throw new CommandNameDuplicateException(name);
             }
             commandsMap.put(name.toLowerCase(), command);
-            command.getOptions();
         }
 
         return commandsMap;

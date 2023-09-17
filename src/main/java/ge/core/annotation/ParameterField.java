@@ -8,4 +8,8 @@ public @interface ParameterField {
 
     String name();
 
+    String description() default "";
+
+    boolean isRequired() default false;
+
 }
