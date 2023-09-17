@@ -7,7 +7,7 @@ group = 'ge'
 version = '1.0-beta'
 
 application {
-    mainClass = 'ge.Runner'
+    mainClass = 'ge.sh2.Runner'
 }
 
 repositories {
