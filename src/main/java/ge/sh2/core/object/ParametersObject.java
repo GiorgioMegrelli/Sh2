@@ -1,8 +1,8 @@
 package ge.sh2.core.object;
 
 import ge.sh2.core.annotation.ParameterField;
-import ge.sh2.core.parameters.GetterAndSetter;
-import ge.sh2.core.parameters.ParametersUtils;
+import ge.sh2.command.parameters.GetterAndSetter;
+import ge.sh2.command.parameters.ParametersUtils;
 import ge.sh2.utils.Types;
 import ge.sh2.utils.exception.ParsingException;
 import org.apache.commons.cli.CommandLine;
@@ -20,8 +20,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static ge.sh2.core.parameters.ParametersUtils.GETTER_ARGUMENT_NAME;
-import static ge.sh2.core.parameters.ParametersUtils.GETTER_PREFIX;
+import static ge.sh2.command.parameters.ParametersUtils.GETTER_ARGUMENT_NAME;
+import static ge.sh2.command.parameters.ParametersUtils.GETTER_PREFIX;
 import static ge.sh2.utils.Strings.*;
 
 public class ParametersObject {

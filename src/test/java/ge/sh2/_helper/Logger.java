@@ -1,4 +1,4 @@
-package ge._helper;
+package ge.sh2._helper;
 
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package ge.sh2.core.parameters;
+package ge.sh2.command.parameters;
 
 import ge.sh2.utils.Sets;
 import ge.sh2.utils.exception.BadStructureParametersException;
