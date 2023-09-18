@@ -63,7 +63,13 @@ public class CommandObject {
         return validFields;
     }
 
-    public void run() {}
+    public void run(Object params) throws Exception {
+        Object instance = cls.getDeclaredConstructor().newInstance();
+        optionsField.setAccessible(true);
+        optionsField.set(instance, params);
+        CommandInvokable commandInvokable = (CommandInvokable) cls.cast(instance);
+        commandInvokable.invoke();
+    }
 
     public Class<?> getOptionsType() {
         return optionsField.getType();

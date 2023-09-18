@@ -2,6 +2,6 @@ package ge.sh2.command;
 
 public interface CommandInvokable {
 
-    void invoke();
+    void invoke() throws Exception;
 
 }

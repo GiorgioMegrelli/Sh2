@@ -11,6 +11,6 @@ public class Touch implements CommandInvokable {
     private Object params;
 
     @Override
-    public void invoke() {}
+    public void invoke() throws Exception {}
 
 }
