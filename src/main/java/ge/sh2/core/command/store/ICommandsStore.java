@@ -1,6 +1,6 @@
 package ge.sh2.core.command.store;
 
-import ge.sh2.core.object.CommandObject;
+import ge.sh2.core.object.command.CommandObject;
 
 import java.util.List;
 

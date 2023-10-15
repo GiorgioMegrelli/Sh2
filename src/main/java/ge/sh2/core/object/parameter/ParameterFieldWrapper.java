@@ -1,4 +1,4 @@
-package ge.sh2.core.object;
+package ge.sh2.core.object.parameter;
 
 import java.lang.reflect.Method;
 

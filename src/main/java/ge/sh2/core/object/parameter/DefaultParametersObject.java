@@ -1,4 +1,4 @@
-package ge.sh2.core.object;
+package ge.sh2.core.object.parameter;
 
 import ge.sh2.core.annotation.ParameterField;
 import ge.sh2.command.custom.parameters.GetterAndSetter;
@@ -24,7 +24,7 @@ import static ge.sh2.command.custom.parameters.ParametersUtils.GETTER_ARGUMENT_N
 import static ge.sh2.command.custom.parameters.ParametersUtils.GETTER_PREFIX;
 import static ge.sh2.utils.Strings.*;
 
-public class ParametersObject {
+public class DefaultParametersObject implements IParametersObject {
 
     private static final CommandLineParser PARSER = new DefaultParser();
 
@@ -32,7 +32,7 @@ public class ParametersObject {
     private Method argumentSetter = null;
     private final Constructor<?> constructor;
 
-    public <T> ParametersObject(Class<T> optionsType) throws Exception {
+    public <T> DefaultParametersObject(Class<T> optionsType) throws Exception {
         List<GetterAndSetter> getterAndSetters = ParametersUtils.findValidGettersSetters(optionsType);
         for(GetterAndSetter getterAndSetter: getterAndSetters) {
             Method getter = getterAndSetter.getter;
@@ -61,8 +61,6 @@ public class ParametersObject {
         }
         constructor = optionsType.getDeclaredConstructor();
     }
-
-
 
     private Options getOptions() {
         Options options = new Options();
@@ -98,6 +96,7 @@ public class ParametersObject {
         return map;
     }
 
+    @Override
     public Object parse(String[] args) throws Exception {
         CommandLine cmd = PARSER.parse(getOptions(), args);
         checkRequiredOpts(cmd);
