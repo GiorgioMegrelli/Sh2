@@ -4,7 +4,6 @@ import ge.sh2.command.CommandInvokable;
 import ge.sh2.core.annotation.Command;
 import ge.sh2.core.annotation.Parameters;
 import ge.sh2.utils.Annotations;
-import ge.sh2.utils.Classes;
 import ge.sh2.utils.Strings;
 import ge.sh2.utils.exception.BadStructureCommandException;
 
@@ -24,14 +23,14 @@ public class CommandObject {
             String reason = "Class is not annotated with " + Command.class.getSimpleName();
             throw new BadStructureCommandException(cls.getName(), reason);
         }
-        if(!Classes.isSubClassOfInterface(cls, CommandInvokable.class)) {
+        if(!CommandInvokable.class.isAssignableFrom(cls)) {
             String reason = "Class is not sub type of " + CommandInvokable.class.getSimpleName();
             throw new BadStructureCommandException(cls.getName(), reason);
         }
         List<Field> paramFields = getParametersField(cls);
         if(paramFields.size() != 1) {
             String reason;
-            if(paramFields.size() == 0) {
+            if(paramFields.isEmpty()) {
                 reason = "Class doesn't have field annotated with " + Parameters.class.getSimpleName();
             } else {
                 reason = "Class has more than one field annotated with " + Parameters.class.getSimpleName();

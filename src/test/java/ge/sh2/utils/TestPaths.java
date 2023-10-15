@@ -12,6 +12,8 @@ import static ge.sh2.utils.Paths.walkFiles;
 
 public class TestPaths {
 
+    private static final char PACKAGE_NAME_SEP = '.';
+
     @Test
     public void testWalkFiles() {
         final String testRootDir = pathSysJoin("src", "test", "java");
@@ -22,7 +24,7 @@ public class TestPaths {
                 .map(file -> {
                     file = Strings.replaceStart(file, root);
                     file = file.replaceAll("\\.java", "");
-                    file = Strings.replaceAll(file, File.separatorChar, Classes.PACKAGE_NAME_SEP);
+                    file = Strings.replaceAll(file, File.separatorChar, PACKAGE_NAME_SEP);
                     return file;
                 })
                 .collect(Collectors.toUnmodifiableSet());

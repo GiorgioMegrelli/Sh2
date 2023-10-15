@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 def mainClassPath = 'ge.sh2.Runner'
@@ -18,14 +19,15 @@ repositories {
 
 dependencies {
     implementation 'commons-cli:commons-cli:1.5.0'
+    implementation 'org.reflections:reflections:0.9.11'
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
-jar {
+shadowJar {
     manifest {
-        attributes "Main-Class": mainClassPath
+        attributes['Main-Class'] = mainClassPath
     }
 }
 
@@ -35,4 +37,8 @@ test {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+tasks.register('buildExport') {
+    dependsOn shadowJar
 }
