@@ -1,4 +1,4 @@
-package ge.sh2.command.type;
+package ge.sh2.command.custom;
 
 import ge.sh2.command.CommandInvokable;
 import ge.sh2.core.annotation.Command;

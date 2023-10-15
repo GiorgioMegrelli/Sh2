@@ -1,11 +1,11 @@
-package ge.sh2.command.type;
+package ge.sh2.command.custom;
 
 import ge.sh2.command.CommandInvokable;
 import ge.sh2.core.annotation.Command;
 import ge.sh2.core.annotation.Parameters;
 
 @Command
-public class Ls implements CommandInvokable {
+public class Touch implements CommandInvokable {
 
     @Parameters
     private Object params;

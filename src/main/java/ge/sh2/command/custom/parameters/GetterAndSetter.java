@@ -1,4 +1,4 @@
-package ge.sh2.command.parameters;
+package ge.sh2.command.custom.parameters;
 
 import java.lang.reflect.Method;
 
