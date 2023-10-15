@@ -3,11 +3,13 @@ plugins {
     id 'application'
 }
 
-group = 'ge'
+def mainClassPath = 'ge.sh2.Runner'
+
+group = 'ge.sh2'
 version = '1.0-beta'
 
 application {
-    mainClass = 'ge.sh2.Runner'
+    mainClass = mainClassPath
 }
 
 repositories {
@@ -21,6 +23,16 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
+jar {
+    manifest {
+        attributes "Main-Class": mainClassPath
+    }
+}
+
 test {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }
