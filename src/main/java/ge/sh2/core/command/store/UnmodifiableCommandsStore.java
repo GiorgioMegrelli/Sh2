@@ -3,6 +3,7 @@ package ge.sh2.core.command.store;
 import ge.sh2.core.object.CommandObject;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
@@ -30,6 +31,11 @@ public class UnmodifiableCommandsStore implements ICommandsStore {
     }
 
     @Override
+    public List<CommandObject> getAll() {
+        return commandsStore.getAll();
+    }
+
+    @Override
     public void merge(CommandsStore other) {
         throw new UnsupportedOperationException();
     }
@@ -48,4 +54,10 @@ public class UnmodifiableCommandsStore implements ICommandsStore {
     public Spliterator<CommandObject> spliterator() {
         return commandsStore.spliterator();
     }
+
+    @Override
+    public String toString() {
+        return commandsStore.toString();
+    }
+
 }

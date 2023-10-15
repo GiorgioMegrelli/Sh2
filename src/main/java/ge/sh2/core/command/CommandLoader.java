@@ -7,7 +7,7 @@ import ge.sh2.core.object.CommandObject;
 
 public class CommandLoader {
 
-    public static final String PACKAGE_NAME = "ge.sh2.command.type";
+    public static final String PACKAGE_NAME = "ge.sh2.command.custom";
 
     public static CommandsStore loadSh2Commands() {
         return new CommandsStore();

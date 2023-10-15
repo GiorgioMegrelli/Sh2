@@ -17,8 +17,13 @@ public class CommandObject {
     private final Command command;
     private final String name;
     private final Field optionsField;
+    private final boolean customCommand;
 
     public CommandObject(Class<?> cls) throws BadStructureCommandException {
+        this(cls, true);
+    }
+
+    public CommandObject(Class<?> cls, boolean customCommand) throws BadStructureCommandException {
         if(!Annotations.containsAnnotation(cls, Command.class)) {
             String reason = "Class is not annotated with " + Command.class.getSimpleName();
             throw new BadStructureCommandException(cls.getName(), reason);
@@ -42,6 +47,7 @@ public class CommandObject {
         this.cls = cls;
         this.command = cls.getAnnotation(Command.class);
         this.name = findName();
+        this.customCommand = customCommand;
     }
 
     private String findName() {
@@ -76,6 +82,10 @@ public class CommandObject {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isCustomCommand() {
+        return customCommand;
     }
 
     @Override

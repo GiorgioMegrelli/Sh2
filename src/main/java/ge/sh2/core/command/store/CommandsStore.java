@@ -37,6 +37,12 @@ public class CommandsStore implements ICommandsStore {
     }
 
     @Override
+    public List<CommandObject> getAll() {
+        Stream<String> keys = entries.keySet().stream().sorted();
+        return keys.map(entries::get).toList();
+    }
+
+    @Override
     public void merge(CommandsStore other) {
         for(CommandObject entry: other) {
             store(entry);
@@ -45,32 +51,27 @@ public class CommandsStore implements ICommandsStore {
 
     @Override
     public Iterator<CommandObject> iterator() {
-        return asList().iterator();
+        return getAll().iterator();
     }
 
     @Override
     public void forEach(Consumer<? super CommandObject> action) {
-        asList().forEach(action);
+        getAll().forEach(action);
     }
 
     @Override
     public Spliterator<CommandObject> spliterator() {
-        return asList().spliterator();
+        return getAll().spliterator();
     }
 
     @Override
     public String toString() {
-        return asList().toString();
+        return getAll().toString();
     }
 
     private String validateName(String name) {
         Objects.requireNonNull(name);
         return name.toLowerCase();
-    }
-
-    private List<CommandObject> asList() {
-        Stream<String> keys = entries.keySet().stream().sorted();
-        return keys.map(entries::get).toList();
     }
 
     public static CommandsStore merge(CommandsStore ...stores) {
