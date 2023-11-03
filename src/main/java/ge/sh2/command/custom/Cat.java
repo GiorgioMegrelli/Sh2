@@ -37,7 +37,7 @@ public class Cat implements CommandInvokable {
                 if(readN < BUFFER_SIZE) {
                     data = Arrays.copyOf(data, readN);
                 }
-                Sh2Context.stdout().print(data);
+                System.out.print(data);
                 if(readN < BUFFER_SIZE) {
                     break;
                 }

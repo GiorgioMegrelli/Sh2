@@ -2,12 +2,21 @@ package ge.sh2.utils;
 
 public class Strings {
 
+    public static final String TAB = "    ";
+    public static final String NEW_LINE = System.lineSeparator();
+
     public static boolean isEmpty(String s) {
         return s == null || s.isEmpty();
     }
 
     public static boolean isBlank(String s) {
-        return s == null || s.trim().isEmpty();
+        if(isEmpty(s)) return true;
+        for(char ch: s.toCharArray()) {
+            if(!Character.isWhitespace(ch)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static String replaceAll(String str, char oldChar, char newChar) {

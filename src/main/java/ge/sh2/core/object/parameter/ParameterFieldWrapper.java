@@ -2,7 +2,7 @@ package ge.sh2.core.object.parameter;
 
 import java.lang.reflect.Method;
 
-public class ParameterFieldWrapper {
+public class ParameterFieldWrapper implements Comparable<ParameterFieldWrapper> {
 
     public final String name;
     public final String description;
@@ -24,4 +24,8 @@ public class ParameterFieldWrapper {
         this.isRequired = isRequired;
     }
 
+    @Override
+    public int compareTo(ParameterFieldWrapper o) {
+        return name.compareTo(o.name);
+    }
 }

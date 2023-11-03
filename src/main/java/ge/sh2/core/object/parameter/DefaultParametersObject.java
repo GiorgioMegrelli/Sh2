@@ -12,6 +12,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,7 +33,8 @@ public class DefaultParametersObject implements IParametersObject {
     private Method argumentSetter = null;
     private final Constructor<?> constructor;
 
-    public <T> DefaultParametersObject(Class<T> optionsType) throws Exception {
+    public <T> DefaultParametersObject(Field field) throws Exception {
+        Class<?> optionsType = field.getType();
         List<GetterAndSetter> getterAndSetters = ParametersUtils.findValidGettersSetters(optionsType);
         for(GetterAndSetter getterAndSetter: getterAndSetters) {
             Method getter = getterAndSetter.getter;
@@ -53,11 +55,11 @@ public class DefaultParametersObject implements IParametersObject {
                 fieldName = parameterField.name();
             }
 
-            ParameterFieldWrapper field = new ParameterFieldWrapper(
+            ParameterFieldWrapper fieldWrapper = new ParameterFieldWrapper(
                     fieldName, parameterField.description(), getter.getReturnType(),
                     getter, setter, parameterField.isRequired()
             );
-            parameterFields.put(fieldName, field);
+            parameterFields.put(fieldName, fieldWrapper);
         }
         constructor = optionsType.getDeclaredConstructor();
     }
@@ -121,6 +123,11 @@ public class DefaultParametersObject implements IParametersObject {
         }
 
         return params;
+    }
+
+    @Override
+    public Map<String, ParameterFieldWrapper> getParameters() {
+        return parameterFields;
     }
 
 }

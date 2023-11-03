@@ -8,4 +8,6 @@ public @interface Command {
 
     String name() default "";
 
+    String description() default "";
+
 }

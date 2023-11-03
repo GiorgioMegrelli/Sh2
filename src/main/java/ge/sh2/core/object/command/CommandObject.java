@@ -5,13 +5,16 @@ import ge.sh2.core.annotation.Command;
 import ge.sh2.core.annotation.Parameters;
 import ge.sh2.core.object.parameter.DefaultParametersObject;
 import ge.sh2.core.object.parameter.IParametersObject;
+import ge.sh2.core.object.parameter.ParameterFieldWrapper;
 import ge.sh2.utils.Annotations;
 import ge.sh2.utils.Strings;
 import ge.sh2.utils.exception.BadStructureCommandException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class CommandObject {
 
@@ -78,6 +81,10 @@ public class CommandObject {
         commandInvokable.invoke();
     }
 
+    public Command getCommand() {
+        return command;
+    }
+
     public Field getParametersField() {
         return paramsField;
     }
@@ -86,7 +93,7 @@ public class CommandObject {
         if(paramsField == null) {
             return new NoDefaultParametersObject();
         }
-        return new DefaultParametersObject(paramsField.getType());
+        return new DefaultParametersObject(paramsField);
     }
 
     public String getName() {
@@ -106,6 +113,11 @@ public class CommandObject {
         @Override
         public Object parse(String[] args) throws Exception {
             return null;
+        }
+
+        @Override
+        public Map<String, ParameterFieldWrapper> getParameters() {
+            return Collections.emptyMap();
         }
     }
 

@@ -1,6 +1,5 @@
 package ge.sh2.utils.console;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -83,14 +82,6 @@ public class ConsoleStyle {
     public static String stylize(String value, Describer ...describers) {
         if(describers == null) {
             return value;
-        }
-
-        long uniqueSize = Arrays.stream(describers)
-                .map(Describer::getClass)
-                .distinct()
-                .count();
-        if(describers.length > uniqueSize) {
-            throw new RuntimeException("Duplicated describers");
         }
 
         StringBuilder sb = new StringBuilder();

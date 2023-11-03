@@ -6,14 +6,8 @@ import ge.sh2.core.command.store.ICommandsStore;
 import ge.sh2.core.command.store.UnmodifiableCommandsStore;
 import ge.sh2.utils.exception.Sh2RuntimeException;
 
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.Objects;
-
 public class Sh2Context {
 
-    private static PrintStream stdout = System.out;
-    private static InputStream stdin = System.in;
     private static final ICommandsStore COMMANDS;
 
     static {
@@ -29,24 +23,6 @@ public class Sh2Context {
 
     public static ICommandsStore getCommands() {
         return COMMANDS;
-    }
-
-    public static void setStdout(PrintStream stdout) {
-        Objects.requireNonNull(stdout);
-        Sh2Context.stdout = stdout;
-    }
-
-    public static PrintStream stdout() {
-        return stdout;
-    }
-
-    public static void setStdin(InputStream stdin) {
-        Objects.requireNonNull(stdin);
-        Sh2Context.stdin = stdin;
-    }
-
-    public static InputStream stdin() {
-        return stdin;
     }
 
 }
