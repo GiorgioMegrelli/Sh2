@@ -1,10 +1,8 @@
-package ge.sh2.command.custom;
+package ge.sh2.command.custom.cat;
 
 import ge.sh2.command.CommandInvokable;
-import ge.sh2.core.Sh2Context;
 import ge.sh2.core.annotation.Command;
 import ge.sh2.core.annotation.Parameters;
-import ge.sh2.command.custom.parameters.CatParameters;
 
 import java.io.File;
 import java.io.FileInputStream;

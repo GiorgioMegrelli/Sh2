@@ -1,4 +1,4 @@
-package ge.sh2.command.custom.parameters;
+package ge.sh2.command.custom.cat;
 
 import ge.sh2.core.annotation.ParameterField;
 

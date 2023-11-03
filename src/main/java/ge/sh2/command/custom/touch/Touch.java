@@ -1,11 +1,11 @@
-package ge.sh2.command.custom;
+package ge.sh2.command.custom.touch;
 
 import ge.sh2.command.CommandInvokable;
 import ge.sh2.core.annotation.Command;
 import ge.sh2.core.annotation.Parameters;
 
-@Command(description = "Lists files in a directory")
-public class Ls implements CommandInvokable {
+@Command
+public class Touch implements CommandInvokable {
 
     @Parameters
     private Object params;
