@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Spliterator;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class UnmodifiableCommandsStore implements ICommandsStore {
 
@@ -33,6 +34,11 @@ public class UnmodifiableCommandsStore implements ICommandsStore {
     @Override
     public List<CommandObject> getAll() {
         return commandsStore.getAll();
+    }
+
+    @Override
+    public List<CommandObject> filter(Predicate<CommandObject> filterFunction) {
+        return commandsStore.filter(filterFunction);
     }
 
     @Override

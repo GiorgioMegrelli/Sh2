@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Spliterator;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class CommandsStore implements ICommandsStore {
@@ -40,6 +41,12 @@ public class CommandsStore implements ICommandsStore {
     public List<CommandObject> getAll() {
         Stream<String> keys = entries.keySet().stream().sorted();
         return keys.map(entries::get).toList();
+    }
+
+    @Override
+    public List<CommandObject> filter(Predicate<CommandObject> filterFunction) {
+        Stream<String> keys = entries.keySet().stream().sorted();
+        return keys.map(entries::get).filter(filterFunction).toList();
     }
 
     @Override

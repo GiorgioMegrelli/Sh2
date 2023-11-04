@@ -1,6 +1,6 @@
 package ge.sh2.command.sh2.help;
 
-import ge.sh2.command.sh2.CommandsFilter;
+import ge.sh2.core.Sh2Context;
 import ge.sh2.core.command.CommandInvokable;
 import ge.sh2.core.annotation.Command;
 import ge.sh2.core.annotation.Parameters;
@@ -41,6 +41,13 @@ public class Help implements CommandInvokable {
         try {
             parametersObject = command.getParametersObject();
         } catch (Exception ignored) {}
+
+        if(field == null) {
+            sb.tab()
+                .plus("Parameters' field doesn't exist", CommonStyles.ITALICS)
+                .newLine();
+            return;
+        }
 
         sb.tab()
                 .plus("Parameters' field", CommonStyles.ITALICS)
@@ -99,9 +106,9 @@ public class Help implements CommandInvokable {
     public void invoke() throws Exception {
         StyledEasyStringBuilder sb = new StyledEasyStringBuilder(1 << 10);
         if(parameters.getAll()) {
-            buildInternalHelp(sb, CommandsFilter.getInternalCommands());
+            buildInternalHelp(sb, Sh2Context.getCommands().getInternals());
         }
-        buildCustomHelp(sb, CommandsFilter.getCustomCommands());
+        buildCustomHelp(sb, Sh2Context.getCommands().getCustoms());
         System.out.print(sb);
     }
 
