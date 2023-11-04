@@ -1,6 +1,6 @@
 package ge.sh2.command.custom.find;
 
-import ge.sh2.command.CommandInvokable;
+import ge.sh2.core.command.CommandInvokable;
 import ge.sh2.core.annotation.Command;
 import ge.sh2.core.annotation.Parameters;
 

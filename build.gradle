@@ -25,6 +25,12 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
+configurations.configureEach {
+    resolutionStrategy {
+        force 'com.google.guava:guava:32.1.2-jre'
+    }
+}
+
 shadowJar {
     manifest {
         attributes['Main-Class'] = mainClassPath

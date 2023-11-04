@@ -1,4 +1,4 @@
-package ge.sh2.command;
+package ge.sh2.core.command;
 
 public interface CommandInvokable {
 
