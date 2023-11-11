@@ -6,4 +6,6 @@ public interface InputOutput {
 
     void println(Object object);
 
+    void println();
+
 }
