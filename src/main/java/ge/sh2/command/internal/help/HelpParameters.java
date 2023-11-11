@@ -1,8 +1,9 @@
 package ge.sh2.command.internal.help;
 
 import ge.sh2.core.annotation.ParameterField;
+import ge.sh2.core.command.ParametersWithArguments;
 
-public class HelpParameters {
+public class HelpParameters extends ParametersWithArguments {
 
     private boolean all = false;
 

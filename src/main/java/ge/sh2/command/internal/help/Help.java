@@ -84,11 +84,15 @@ public class Help implements CommandInvokable {
         }
     }
 
+    private static void buildHelp(StyledEasyStringBuilder sb, CommandObject command) {
+        writeHeader(command, sb);
+        writeParameters(command, sb);
+        sb.newLine();
+    }
+
     private static void buildHelp(StyledEasyStringBuilder sb, List<CommandObject> commands) {
         for(CommandObject command: commands) {
-            writeHeader(command, sb);
-            writeParameters(command, sb);
-            sb.newLine();
+            buildHelp(sb, command);
         }
     }
 
@@ -105,10 +109,20 @@ public class Help implements CommandInvokable {
     @Override
     public void invoke() throws Exception {
         StyledEasyStringBuilder sb = new StyledEasyStringBuilder(1 << 10);
-        if(parameters.getAll()) {
-            buildInternalHelp(sb, Sh2Context.getCommands().getInternals());
+        String[] arguments = parameters.getArguments();
+        if(arguments == null || arguments.length == 0) {
+            if(parameters.getAll()) {
+                buildInternalHelp(sb, Sh2Context.getCommands().getInternals());
+            }
+            buildCustomHelp(sb, Sh2Context.getCommands().getCustoms());
+        } else {
+            for(String arg: arguments) {
+                CommandObject cmd = Sh2Context.getCommands().get(arg);
+                if(cmd != null) {
+                    buildHelp(sb, cmd);
+                }
+            }
         }
-        buildCustomHelp(sb, Sh2Context.getCommands().getCustoms());
         Sh2Context.getIO().print(sb);
     }
 

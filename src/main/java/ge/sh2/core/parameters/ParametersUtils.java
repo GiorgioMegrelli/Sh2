@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static ge.sh2.utils.Strings.replaceStart;
 
@@ -33,8 +32,17 @@ public class ParametersUtils {
         GETTER_ARGUMENT_NAME = GETTER_PREFIX + arguments;
     }
 
+    private static List<Method> extractMethods(Class<?> cls) {
+        List<Method> methods = new ArrayList<>();
+        while(cls != Object.class) {
+            methods.addAll(Arrays.asList(cls.getDeclaredMethods()));
+            cls = cls.getSuperclass();
+        }
+        return methods;
+    }
+
     public static <T> List<GetterAndSetter> findValidGettersSetters(Class<T> cls) throws BadStructureParametersException {
-        Method[] methods = cls.getDeclaredMethods();
+        List<Method> methods = extractMethods(cls);
         Set<Method> getters = new HashSet<>();
         for(Method method: methods) {
             String name = method.getName();
@@ -95,7 +103,7 @@ public class ParametersUtils {
         List<Method> methods = findValidGettersSetters(parameters.getClass())
                 .stream()
                 .map(w -> w.getter)
-                .collect(Collectors.toList());
+                .toList();
         Optional<Method> argumentGetter = methods.stream()
                 .filter(m -> m.getName().equals(GETTER_ARGUMENT_NAME))
                 .findFirst();
