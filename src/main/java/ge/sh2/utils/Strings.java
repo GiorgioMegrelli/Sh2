@@ -60,4 +60,22 @@ public class Strings {
         return builder.toString();
     }
 
+    public static int countMatches(String str, String sub) {
+        if(sub.isEmpty()) {
+            return str.length() + 1;
+        }
+
+        int count = 0;
+        int lastIndex = 0;
+        while(true) {
+            lastIndex = str.indexOf(sub, lastIndex);
+            if(lastIndex < 0) {
+                break;
+            }
+            count++;
+            lastIndex++;
+        }
+        return count;
+    }
+
 }

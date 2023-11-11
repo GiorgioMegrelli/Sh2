@@ -1,4 +1,4 @@
-package ge.sh2.command.sh2.help;
+package ge.sh2.command.internal.help;
 
 import ge.sh2.core.Sh2Context;
 import ge.sh2.core.command.CommandInvokable;
@@ -15,7 +15,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.stream.Stream;
 
-@Command
+@Command(description = "Prints information about commands")
 public class Help implements CommandInvokable {
 
     @Parameters

@@ -9,28 +9,37 @@ public class TestStrings {
 
     @Test
     public void testReplaceAll() {
-        assertEquals(replaceAll("", 'a', 'b'), "");
-        assertEquals(replaceAll("aaa", 'a', 'b'), "bbb");
-        assertEquals(replaceAll("aaa", 'c', 'd'), "aaa");
-        assertEquals(replaceAll("a.b.c", '.', '/'), "a/b/c");
-        assertEquals(replaceAll("ა/ბ/გ/დ", '/', '-'), "ა-ბ-გ-დ");
+        assertEquals("", replaceAll("", 'a', 'b'));
+        assertEquals("bbb", replaceAll("aaa", 'a', 'b'));
+        assertEquals("aaa", replaceAll("aaa", 'c', 'd'));
+        assertEquals("a/b/c", replaceAll("a.b.c", '.', '/'));
+        assertEquals("ა-ბ-გ-დ", replaceAll("ა/ბ/გ/დ", '/', '-'));
     }
 
     @Test
     public void testReplaceStart() {
-        assertEquals(replaceStart("", ""), "");
-        assertEquals(replaceStart("abc", "abc"), "");
-        assertEquals(replaceStart("abc", "cba"), "abc");
+        assertEquals("", replaceStart("", ""));
+        assertEquals("", replaceStart("abc", "abc"));
+        assertEquals("abc", replaceStart("abc", "cba"));
     }
 
     @Test
     public void testCamelCaseToSnakeCase() {
-        assertEquals(camelCaseToSnakeCase(""), "");
-        assertEquals(camelCaseToSnakeCase("Abc"), "abc");
-        assertEquals(camelCaseToSnakeCase("AbcTail"), "abc_tail");
-        assertEquals(camelCaseToSnakeCase("ABCDE"), "a_b_c_d_e");
+        assertEquals("", camelCaseToSnakeCase(""));
+        assertEquals("abc", camelCaseToSnakeCase("Abc"));
+        assertEquals("abc_tail", camelCaseToSnakeCase("AbcTail"));
+        assertEquals("a_b_c_d_e", camelCaseToSnakeCase("ABCDE"));
 
-        assertEquals(camelCaseToSnakeCase("ABCDE", '%'), "a%b%c%d%e");
+        assertEquals("a%b%c%d%e", camelCaseToSnakeCase("ABCDE", '%'));
+    }
+
+    @Test
+    public void testCountMatches() {
+        assertEquals(4, countMatches("ABC", ""));
+        assertEquals(0, countMatches("ABC", "N"));
+        assertEquals(1, countMatches("ABC", "A"));
+        assertEquals(4, countMatches("AAAA", "A"));
+        assertEquals(3, countMatches("ABABABA", "AB"));
     }
 
 }

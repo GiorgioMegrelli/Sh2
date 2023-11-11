@@ -7,10 +7,10 @@ import ge.sh2.core.object.command.CommandObject;
 
 public class CommandLoader {
 
-    public static final String SH2_PACKAGE = "ge.sh2.command.sh2";
+    public static final String SH2_PACKAGE = "ge.sh2.command.internal";
     public static final String CUSTOM_PACKAGE = "ge.sh2.command.custom";
 
-    public static CommandsStore loadSh2Commands() {
+    public static CommandsStore loadInternalCommands() {
         return loadCommands(SH2_PACKAGE, false);
     }
 

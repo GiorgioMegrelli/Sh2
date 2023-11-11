@@ -14,6 +14,10 @@ public class StringInputOutput extends AbstractInputOutput {
         sb.append(asString(object)).append('\n');
     }
 
+    public void clear() {
+        sb.setLength(0);
+    }
+
     @Override
     public String toString() {
         return sb.toString();

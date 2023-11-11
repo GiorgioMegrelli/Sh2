@@ -1,4 +1,4 @@
-package ge.sh2.command.sh2.help;
+package ge.sh2.command.internal.help;
 
 import ge.sh2.core.Sh2Context;
 import ge.sh2.core.annotation.Command;

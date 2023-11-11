@@ -17,7 +17,7 @@ public class Sh2Context {
     static {
         try {
             CommandsStore commandsStore = new CommandsStore();
-            commandsStore.merge(CommandLoader.loadSh2Commands());
+            commandsStore.merge(CommandLoader.loadInternalCommands());
             commandsStore.merge(CommandLoader.loadCustomCommands());
             COMMANDS = new UnmodifiableCommandsStore(commandsStore);
         } catch (Exception e) {
