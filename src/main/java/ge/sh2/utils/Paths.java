@@ -41,4 +41,8 @@ public class Paths {
         }
     }
 
+    public static File normalize(File file) {
+        return file.toPath().normalize().toFile();
+    }
+
 }

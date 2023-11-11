@@ -42,4 +42,18 @@ public class TestStrings {
         assertEquals(3, countMatches("ABABABA", "AB"));
     }
 
+    @Test
+    public void testPadStart() {
+        assertEquals("Hello", padStart("Hello", " ", 4));
+        assertEquals("   ", padStart("", " ", 3));
+        assertEquals("  abc", padStart("abc", " ", 5));
+    }
+
+    @Test
+    public void testPadEnd() {
+        assertEquals("Hello", padEnd("Hello", " ", 4));
+        assertEquals("   ", padEnd("", " ", 3));
+        assertEquals("abc  ", padEnd("abc", " ", 5));
+    }
+
 }

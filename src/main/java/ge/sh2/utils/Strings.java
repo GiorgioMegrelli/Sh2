@@ -78,4 +78,18 @@ public class Strings {
         return count;
     }
 
+    public static String padStart(String str, String subStr, int maxLength) {
+        if(str.length() >= maxLength) {
+            return str;
+        }
+        return subStr.repeat(maxLength - str.length()) + str;
+    }
+
+    public static String padEnd(String str, String subStr, int maxLength) {
+        if(str.length() >= maxLength) {
+            return str;
+        }
+        return str + subStr.repeat(maxLength - str.length());
+    }
+
 }
