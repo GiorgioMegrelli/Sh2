@@ -1,4 +1,4 @@
-package ge.sh2.utils.console;
+package ge.sh2.core.console.style;
 
 public class CommonStyles {
 

@@ -1,6 +1,6 @@
 package ge.sh2.utils.builder;
 
-import ge.sh2.utils.console.ConsoleStyle;
+import ge.sh2.core.console.style.ConsoleStyle;
 
 public class StyledEasyStringBuilder extends AbstractEasyStringBuilder<StyledEasyStringBuilder> {
 
