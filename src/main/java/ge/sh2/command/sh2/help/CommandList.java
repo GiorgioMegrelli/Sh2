@@ -24,7 +24,7 @@ public class CommandList implements CommandInvokable {
         }
 
         for(CommandObject command: commands) {
-            System.out.println(command.getName());
+            Sh2Context.getIO().println(command.getName());
         }
     }
 

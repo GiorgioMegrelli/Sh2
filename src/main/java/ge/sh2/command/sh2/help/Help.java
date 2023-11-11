@@ -9,7 +9,7 @@ import ge.sh2.core.object.parameter.IParametersObject;
 import ge.sh2.core.object.parameter.ParameterFieldWrapper;
 import ge.sh2.utils.Strings;
 import ge.sh2.utils.builder.StyledEasyStringBuilder;
-import ge.sh2.utils.console.CommonStyles;
+import ge.sh2.core.console.style.CommonStyles;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -109,7 +109,7 @@ public class Help implements CommandInvokable {
             buildInternalHelp(sb, Sh2Context.getCommands().getInternals());
         }
         buildCustomHelp(sb, Sh2Context.getCommands().getCustoms());
-        System.out.print(sb);
+        Sh2Context.getIO().print(sb);
     }
 
 }
