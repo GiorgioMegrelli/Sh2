@@ -73,8 +73,11 @@ public class Help implements CommandInvokable {
                     .newLine();
             sortedValues.forEach(wrapper -> {
                 sb.tab(3).plus(wrapper.name, CommonStyles.ITALICS);
+                if(wrapper.isRequired || !Strings.isBlank(wrapper.description)) {
+                    sb.plus(" -", CommonStyles.LOW_ITALICS);
+                }
                 if(wrapper.isRequired) {
-                    sb.plus(" [Required]");
+                    sb.plus(" [Required]", CommonStyles.LOW_ITALICS);
                 }
                 if(!Strings.isBlank(wrapper.description)) {
                     sb.plus(' ').plus(wrapper.description, CommonStyles.LOW_ITALICS);
