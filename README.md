@@ -101,3 +101,12 @@ class YourCommandParameters extends ParametersWithArguments {
 ```
 
 <i>Check `src/main/java/ge/sh2/command/custom/` to see example and more details.</i>
+
+### TODO List
+
+- [ ] Updated algorithm to find setters and getters
+- [ ] Add new commands
+- [ ] Improve code quality
+- [ ] Add CLI mode
+
+## Project is really WELCOME for modifications
