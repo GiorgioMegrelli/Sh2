@@ -13,7 +13,6 @@ import ge.sh2.core.console.style.CommonStyles;
 
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Command(description = "Prints information about commands")
 public class Help implements CommandInvokable {
@@ -62,28 +61,36 @@ public class Help implements CommandInvokable {
                 .newLine();
 
         if(parametersObject != null) {
-            Stream<ParameterFieldWrapper> sortedValues = parametersObject
+            List<ParameterFieldWrapper> sortedValues = parametersObject
                     .getParameters()
                     .values()
                     .stream()
-                    .sorted();
+                    .sorted()
+                    .toList();
 
             sb.tab(2)
-                    .plus("Values:", CommonStyles.ITALICS)
+                    .plus("Arguments: ", CommonStyles.ITALICS)
+                    .plus(String.valueOf(parametersObject.hasArguments()))
                     .newLine();
-            sortedValues.forEach(wrapper -> {
-                sb.tab(3).plus(wrapper.name, CommonStyles.ITALICS);
-                if(wrapper.isRequired || !Strings.isBlank(wrapper.description)) {
-                    sb.plus(" -", CommonStyles.LOW_ITALICS);
-                }
-                if(wrapper.isRequired) {
-                    sb.plus(" [Required]", CommonStyles.LOW_ITALICS);
-                }
-                if(!Strings.isBlank(wrapper.description)) {
-                    sb.plus(' ').plus(wrapper.description, CommonStyles.LOW_ITALICS);
-                }
-                sb.newLine();
-            });
+
+            if(!sortedValues.isEmpty()) {
+                sb.tab(2)
+                        .plus("Values:", CommonStyles.ITALICS)
+                        .newLine();
+                sortedValues.forEach(wrapper -> {
+                    sb.tab(3).plus(wrapper.name, CommonStyles.ITALICS);
+                    if (wrapper.isRequired || !Strings.isBlank(wrapper.description)) {
+                        sb.plus(" -", CommonStyles.LOW_ITALICS);
+                    }
+                    if (wrapper.isRequired) {
+                        sb.plus(" [Required]", CommonStyles.LOW_ITALICS);
+                    }
+                    if (!Strings.isBlank(wrapper.description)) {
+                        sb.plus(' ').plus(wrapper.description, CommonStyles.LOW_ITALICS);
+                    }
+                    sb.newLine();
+                });
+            }
         }
     }
 

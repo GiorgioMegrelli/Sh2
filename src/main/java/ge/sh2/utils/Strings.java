@@ -38,7 +38,7 @@ public class Strings {
 
     public static String replaceStart(String str, String startStr, String newStartStr) {
         int index = str.indexOf(startStr);
-        if(index < 0) {
+        if(index != 0) {
             return str;
         }
         return newStartStr + str.substring(startStr.length());
@@ -90,6 +90,16 @@ public class Strings {
             return str;
         }
         return str + subStr.repeat(maxLength - str.length());
+    }
+
+    public static String capitalize(String str) {
+        if(str.isEmpty()) {
+            return str;
+        }
+        if(str.length() == 1) {
+            return str.toUpperCase();
+        }
+        return Character.toUpperCase(str.charAt(0)) + str.substring(1);
     }
 
 }

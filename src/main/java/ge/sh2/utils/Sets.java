@@ -14,4 +14,17 @@ public class Sets {
         return new HashSet<>(Arrays.asList(values));
     }
 
+    @SafeVarargs
+    public static <T> Set<T> merge(Set<T>... sets) {
+        Set<T> merged = new HashSet<>();
+        if(sets != null) {
+            for(Set<T> set: sets) {
+                if(set != null) {
+                    merged.addAll(set);
+                }
+            }
+        }
+        return merged;
+    }
+
 }

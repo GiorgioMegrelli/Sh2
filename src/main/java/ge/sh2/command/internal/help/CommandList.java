@@ -12,7 +12,7 @@ import java.util.List;
 public class CommandList implements CommandInvokable {
 
     @Parameters
-    private HelpParameters parameters;
+    private CmdListParameters parameters;
 
     @Override
     public void invoke() throws Exception {

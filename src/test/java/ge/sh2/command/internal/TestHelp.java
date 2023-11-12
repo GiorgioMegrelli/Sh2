@@ -1,5 +1,6 @@
 package ge.sh2.command.internal;
 
+import ge.sh2.command.internal.help.CmdListParameters;
 import ge.sh2.command.internal.help.Help;
 import ge.sh2.command.internal.help.HelpParameters;
 import ge.sh2.core.annotation.Command;
@@ -14,9 +15,11 @@ public class TestHelp extends AbstractCommandTest {
     private static final String CMD_LIST_NAME = "cmd-list";
     private static final String HELP_NAME = "help";
     private static final String HELP_PARAMS_FULL_NAME;
+    private static final String CMD_PARAMS_FULL_NAME;
 
     static {
         HELP_PARAMS_FULL_NAME = HelpParameters.class.getName().toLowerCase();
+        CMD_PARAMS_FULL_NAME = CmdListParameters.class.getName().toLowerCase();
     }
 
     @Test
@@ -62,7 +65,8 @@ public class TestHelp extends AbstractCommandTest {
         String helpString = getTestIO().toString().toLowerCase();
         Assertions.assertTrue(helpString.contains(CMD_LIST_NAME));
         Assertions.assertTrue(helpString.contains(HELP_NAME));
-        Assertions.assertEquals(2, Strings.countMatches(helpString, HELP_PARAMS_FULL_NAME));
+        Assertions.assertEquals(1, Strings.countMatches(helpString, HELP_PARAMS_FULL_NAME));
+        Assertions.assertEquals(1, Strings.countMatches(helpString, CMD_PARAMS_FULL_NAME));
     }
 
 }

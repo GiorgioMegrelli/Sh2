@@ -1,7 +1,7 @@
 package ge.sh2.command.internal;
 
+import ge.sh2.command.internal.help.CmdListParameters;
 import ge.sh2.command.internal.help.CommandList;
-import ge.sh2.command.internal.help.HelpParameters;
 import ge.sh2.core.annotation.Command;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ public class TestCommandList extends AbstractCommandTest {
 
         Assertions.assertThrowsExactly(NullPointerException.class, help::invoke);
 
-        Assertions.assertTrue(setParameters(help, new HelpParameters()));
+        Assertions.assertTrue(setParameters(help, new CmdListParameters()));
 
         help.invoke();
 
@@ -42,7 +42,7 @@ public class TestCommandList extends AbstractCommandTest {
 
     @Test
     public void testAll() throws Exception {
-        HelpParameters parameters = new HelpParameters();
+        CmdListParameters parameters = new CmdListParameters();
         CommandList help = new CommandList();
 
         Assertions.assertThrowsExactly(NullPointerException.class, help::invoke);
