@@ -1,143 +1,120 @@
 package ge.sh2.core.parameters;
 
+import ge.sh2.core.annotation.ParameterField;
+import ge.sh2.utils.Annotations;
 import ge.sh2.utils.Sets;
-import ge.sh2.utils.exception.BadStructureParametersException;
+import ge.sh2.utils.Strings;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
-import static ge.sh2.utils.Strings.replaceStart;
+import static ge.sh2.utils.MethodUtils.*;
 
 public class ParametersUtils {
 
-    public static final String GETTER_PREFIX = "get";
-    public static final String SETTER_PREFIX = "set";
-    public static final String SETTER_ARGUMENT_NAME;
-    public static final String GETTER_ARGUMENT_NAME;
+    private static final String ARGUMENTS_METHOD_NAME = "arguments";
     private static final Set<Class<?>> VALID_TYPES = Sets.toSet(
             String.class, boolean.class, short.class, int.class, long.class
     );
     private static final Class<?> ARGUMENT_TYPE = String[].class;
 
+    public static final String SETTER_ARGUMENT_NAME;
+    public static final String GETTER_ARGUMENT_NAME;
+
     static {
-        String arguments = "Arguments";
-        SETTER_ARGUMENT_NAME = SETTER_PREFIX + arguments;
-        GETTER_ARGUMENT_NAME = GETTER_PREFIX + arguments;
+        SETTER_ARGUMENT_NAME = SET_PREFIX + Strings.capitalize(ARGUMENTS_METHOD_NAME);
+        GETTER_ARGUMENT_NAME = GET_PREFIX + Strings.capitalize(ARGUMENTS_METHOD_NAME);
     }
 
-    private static List<Method> extractMethods(Class<?> cls) {
-        List<Method> methods = new ArrayList<>();
-        while(cls != Object.class) {
-            methods.addAll(Arrays.asList(cls.getDeclaredMethods()));
-            cls = cls.getSuperclass();
-        }
-        return methods;
-    }
-
-    public static <T> List<GetterAndSetter> findValidGettersSetters(Class<T> cls) throws BadStructureParametersException {
-        List<Method> methods = extractMethods(cls);
-        Set<Method> getters = new HashSet<>();
-        for(Method method: methods) {
+    public static <T> Map<String, GetterAndSetter> findValidGettersSetters(Class<T> cls) {
+        Map<String, List<Method>> namedMethods = new HashMap<>();
+        for(Method method: getGetterAndSetters(cls)) {
             String name = method.getName();
-            Class<?> retType = method.getReturnType();
-            Class<?>[] paramTypes = method.getParameterTypes();
-
-            if(GETTER_ARGUMENT_NAME.equals(name)
-                    && paramTypes.length == 0
-                    && retType.equals(ARGUMENT_TYPE)) {
-                getters.add(method);
-            } else if(name.startsWith(GETTER_PREFIX)
-                    && paramTypes.length == 0
-                    && !retType.equals(void.class)) {
-                if(!VALID_TYPES.contains(retType)) {
-                    String msg = "Invalid field type: " + retType;
-                    throw new BadStructureParametersException(cls, msg);
-                }
-                getters.add(method);
-            }
-        }
-
-        List<GetterAndSetter> result = new ArrayList<>();
-        Map<String, Method> gettersNames = new HashMap<>() {{
-            getters.forEach(m -> {
-                put(m.getName(), m);
-            });
-        }};
-        for(Method method: methods) {
-            String name = method.getName();
-            if(!name.startsWith(SETTER_PREFIX)) {
+            String validName = replaceAndValidate(name);
+            if(name.length() == validName.length()) {
                 continue;
             }
-            String getterName = replaceStart(name, SETTER_PREFIX, GETTER_PREFIX);
-            if(!gettersNames.containsKey(getterName)) {
-                String msg = "Setter method is not found for " + getterName;
-                throw new BadStructureParametersException(cls, msg);
-            }
 
-            Method getter = gettersNames.get(getterName);
-            Class<?>[] paramTypes = method.getParameterTypes();
-            if(SETTER_ARGUMENT_NAME.equals(getterName)
-                    && paramTypes.length == 1
-                    && paramTypes[0].equals(ARGUMENT_TYPE)) {
-                result.add(new GetterAndSetter(getter, method));
-            } else if(paramTypes.length == 1 && paramTypes[0].equals(getter.getReturnType())) {
-                result.add(new GetterAndSetter(getter, method));
+            if(namedMethods.containsKey(validName)) {
+                namedMethods.get(validName).add(method);
             } else {
-                String msg = "Invalid setter method for " + getterName;
-                throw new BadStructureParametersException(cls, msg);
+                namedMethods.put(validName, new ArrayList<>(3) {{
+                    add(method);
+                }});
             }
         }
 
+        Map<String, GetterAndSetter> result = new HashMap<>();
+        for(Map.Entry<String, List<Method>> entry: namedMethods.entrySet()) {
+            List<Method> methods = entry.getValue();
+            GetterAndSetter gas = asGetterAndSetter(methods);
+            if(gas == null) {
+                continue;
+            }
+
+            String name = entry.getKey();
+            Class<?> getterRetType = gas.getter.getReturnType();
+            Class<?> setterRetType = gas.setter.getReturnType();
+            Class<?>[] getterParamTypes = gas.getter.getParameterTypes();
+            Class<?>[] setterParamTypes = gas.setter.getParameterTypes();
+            if(name.equals(ARGUMENTS_METHOD_NAME)) {
+                if(getterRetType.equals(ARGUMENT_TYPE)
+                && setterRetType.equals(void.class)
+                && getterParamTypes.length == 0
+                && setterParamTypes.length == 1
+                && setterParamTypes[0].equals(ARGUMENT_TYPE)) {
+                    result.put(name, gas);
+                }
+            } else {
+                if(Annotations.containsAnnotation(gas.getter, ParameterField.class)
+                && VALID_TYPES.contains(getterRetType)
+                && setterRetType.equals(void.class)
+                && getterParamTypes.length == 0
+                && setterParamTypes.length == 1
+                && setterParamTypes[0].equals(getterRetType)) {
+                    result.put(name, gas);
+                }
+            }
+        }
         return result;
     }
 
-    public static String stringify(Object parameters) throws Exception {
-        StringBuilder sb = new StringBuilder();
-        List<Method> methods = findValidGettersSetters(parameters.getClass())
-                .stream()
-                .map(w -> w.getter)
-                .toList();
-        Optional<Method> argumentGetter = methods.stream()
-                .filter(m -> m.getName().equals(GETTER_ARGUMENT_NAME))
-                .findFirst();
-
-        if(argumentGetter.isPresent()) {
-            Method getterMethod = argumentGetter.get();
-            String[] args = (String[]) getterMethod.invoke(parameters);
-            sb.append("args=");
-            if(args == null) {
-                sb.append("[]");
-            } else {
-                sb.append(Arrays.asList(args));
-            }
-            sb.append(' ');
+    private static String replaceAndValidate(String name) {
+        String validName;
+        if(name.startsWith(IS_PREFIX)) {
+            validName = Strings.replaceStart(name, IS_PREFIX);
+        } else if(name.startsWith(GET_PREFIX)) {
+            validName = Strings.replaceStart(name, GET_PREFIX);
+        } else if(name.startsWith(SET_PREFIX)) {
+            validName = Strings.replaceStart(name, SET_PREFIX);
+        } else {
+            return name;
         }
+        String start = validName.substring(0, 1);
+        return Strings.replaceStart(validName, start, start.toLowerCase());
+    }
 
-        boolean isFirst = true;
-        sb.append("options=").append('[');
-        for(Method method: methods) {
-            String name = method.getName();
-            if(name.equals(GETTER_ARGUMENT_NAME)) {
-                continue;
+    private static GetterAndSetter asGetterAndSetter(List<Method> methods) {
+        if(methods.size() == 2) {
+            Method getter = null;
+            Method setter = null;
+            for(Method method: methods) {
+                String name = method.getName();
+                if(name.startsWith(IS_PREFIX) || name.startsWith(GET_PREFIX)) {
+                    getter = method;
+                } else if(name.startsWith(SET_PREFIX)) {
+                    setter = method;
+                }
             }
-
-            if(!isFirst) {
-                sb.append(", ");
+            if(getter != null && setter != null) {
+                return new GetterAndSetter(getter, setter);
             }
-            Object value = method.invoke(parameters);
-            sb.append(name).append(": ").append(value);
-            isFirst = false;
         }
-        sb.append(']');
-
-        return sb.toString();
+        return null;
     }
 
 }

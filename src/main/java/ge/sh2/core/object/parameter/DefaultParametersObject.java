@@ -3,6 +3,7 @@ package ge.sh2.core.object.parameter;
 import ge.sh2.core.annotation.ParameterField;
 import ge.sh2.core.parameters.GetterAndSetter;
 import ge.sh2.core.parameters.ParametersUtils;
+import ge.sh2.utils.MethodUtils;
 import ge.sh2.utils.Types;
 import ge.sh2.utils.exception.ParsingException;
 import org.apache.commons.cli.CommandLine;
@@ -16,13 +17,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static ge.sh2.core.parameters.ParametersUtils.GETTER_ARGUMENT_NAME;
-import static ge.sh2.core.parameters.ParametersUtils.GETTER_PREFIX;
 import static ge.sh2.utils.Strings.*;
 
 public class DefaultParametersObject implements IParametersObject {
@@ -35,8 +34,8 @@ public class DefaultParametersObject implements IParametersObject {
 
     public <T> DefaultParametersObject(Field field) throws Exception {
         Class<?> optionsType = field.getType();
-        List<GetterAndSetter> getterAndSetters = ParametersUtils.findValidGettersSetters(optionsType);
-        for(GetterAndSetter getterAndSetter: getterAndSetters) {
+        Map<String, GetterAndSetter> getterAndSetters = ParametersUtils.findValidGettersSetters(optionsType);
+        for(GetterAndSetter getterAndSetter: getterAndSetters.values()) {
             Method getter = getterAndSetter.getter;
             Method setter = getterAndSetter.setter;
 
@@ -49,7 +48,7 @@ public class DefaultParametersObject implements IParametersObject {
             String fieldName;
             if(isBlank(parameterField.name())) {
                 fieldName = camelCaseToSnakeCase(
-                        replaceStart(getter.getName(), GETTER_PREFIX), '-'
+                        replaceStart(getter.getName(), MethodUtils.GET_PREFIX), '-'
                 );
             } else {
                 fieldName = parameterField.name();
@@ -62,6 +61,16 @@ public class DefaultParametersObject implements IParametersObject {
             parameterFields.put(fieldName, fieldWrapper);
         }
         constructor = optionsType.getDeclaredConstructor();
+    }
+
+    @Override
+    public boolean hasArguments() {
+        return argumentSetter != null;
+    }
+
+    @Override
+    public Map<String, ParameterFieldWrapper> getParameters() {
+        return parameterFields;
     }
 
     private Options getOptions() {
@@ -123,11 +132,6 @@ public class DefaultParametersObject implements IParametersObject {
         }
 
         return params;
-    }
-
-    @Override
-    public Map<String, ParameterFieldWrapper> getParameters() {
-        return parameterFields;
     }
 
 }

@@ -119,6 +119,11 @@ public class CommandObject {
         public Map<String, ParameterFieldWrapper> getParameters() {
             return Collections.emptyMap();
         }
+
+        @Override
+        public boolean hasArguments() {
+            return false;
+        }
     }
 
 }

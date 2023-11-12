@@ -9,4 +9,10 @@ public class GetterAndSetter {
         this.getter = getter;
         this.setter = setter;
     }
+
+    @Override
+    public String toString() {
+        return "GetterAndSetter{getter=" + getter + ", setter=" + setter + '}';
+    }
+
 }

@@ -8,4 +8,6 @@ public interface IParametersObject {
 
     Map<String, ParameterFieldWrapper> getParameters();
 
+    boolean hasArguments();
+
 }
