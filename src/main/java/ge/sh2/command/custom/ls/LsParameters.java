@@ -10,7 +10,7 @@ public class LsParameters extends ParametersWithArguments {
     private boolean contentSize = false;
 
     @ParameterField(name = "d", description = "Detailed information")
-    public boolean getDetails() {
+    public boolean isDetailed() {
         return detailed;
     }
 
@@ -19,7 +19,7 @@ public class LsParameters extends ParametersWithArguments {
     }
 
     @ParameterField(name = "a", description = "Use absolute path")
-    public boolean getAbsolute() {
+    public boolean isAbsolute() {
         return absolute;
     }
 
@@ -28,7 +28,7 @@ public class LsParameters extends ParametersWithArguments {
     }
 
     @ParameterField(name = "dirContent", description = "Print size of full content in directory")
-    public boolean getContentSize() {
+    public boolean isContentSize() {
         return contentSize;
     }
 

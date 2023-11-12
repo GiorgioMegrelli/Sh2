@@ -17,7 +17,7 @@ public class CommandList implements CommandInvokable {
     @Override
     public void invoke() throws Exception {
         List<CommandObject> commands;
-        if(parameters.getAll()) {
+        if(parameters.isAll()) {
             commands = Sh2Context.getCommands().getAll();
         } else {
             commands = Sh2Context.getCommands().getCustoms();

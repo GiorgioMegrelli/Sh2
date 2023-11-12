@@ -8,7 +8,7 @@ public class HelpParameters extends ParametersWithArguments {
     private boolean all = false;
 
     @ParameterField(name = "all")
-    public boolean getAll() {
+    public boolean isAll() {
         return all;
     }
 

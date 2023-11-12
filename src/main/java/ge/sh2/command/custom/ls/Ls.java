@@ -44,28 +44,28 @@ public class Ls implements CommandInvokable {
         List<Pair<String, ExtendedFile>> files = Arrays.stream(childFiles)
                 .map(ExtendedFile::new)
                 .map(file -> {
-                    String name = (parameters.getAbsolute())? file.fullName(): file.name();
+                    String name = (parameters.isAbsolute())? file.fullName(): file.name();
                     return new Pair<>(name, file);
                 })
                 .toList();
 
         int maxLength = -1;
-        if(parameters.getDetails()) {
+        if(parameters.isDetailed()) {
             maxLength = files.stream()
                     .map(pair -> pair.getFirst().length())
                     .max(Integer::compareTo)
                     .orElse(0);
         }
-        maxLength += (parameters.getAbsolute())? 2: 4;
+        maxLength += (parameters.isAbsolute())? 2: 4;
 
         StringBuilder columns = new StringBuilder();
         columns.append("Name");
-        if(parameters.getDetails()) {
+        if(parameters.isDetailed()) {
             columns.append(" ".repeat(maxLength - 5));
             columns.append("Type");
             columns.append(" ".repeat(6));
             columns.append("Size    Mode");
-            if(parameters.getContentSize()) {
+            if(parameters.isContentSize()) {
                 columns.append("  Content_Size");
             }
         }
@@ -75,7 +75,7 @@ public class Ls implements CommandInvokable {
             String name = entry.getFirst();
             ExtendedFile file = entry.getSecond();
             io.print(name);
-            if(parameters.getDetails()) {
+            if(parameters.isDetailed()) {
                 String fmtSize = BYTES_FORMATTER.format(file.size());
                 io.print(" ".repeat(maxLength - name.length()));
                 io.print("   ");
@@ -86,7 +86,7 @@ public class Ls implements CommandInvokable {
                 );
                 io.print("  ");
                 io.print(file.modeString());
-                if(file.isDirectory() && parameters.getContentSize()) {
+                if(file.isDirectory() && parameters.isContentSize()) {
                     String fmtRecSize = BYTES_FORMATTER.format(file.recursiveSize());
                     io.print(
                             Strings.padStart(fmtRecSize, " ", FMT_BYTES_SIZE + 6)

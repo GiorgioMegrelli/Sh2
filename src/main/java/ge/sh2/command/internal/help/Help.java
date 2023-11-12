@@ -121,7 +121,7 @@ public class Help implements CommandInvokable {
         StyledEasyStringBuilder sb = new StyledEasyStringBuilder(1 << 10);
         String[] arguments = parameters.getArguments();
         if(arguments == null || arguments.length == 0) {
-            if(parameters.getAll()) {
+            if(parameters.isAll()) {
                 buildInternalHelp(sb, Sh2Context.getCommands().getInternals());
             }
             buildCustomHelp(sb, Sh2Context.getCommands().getCustoms());
