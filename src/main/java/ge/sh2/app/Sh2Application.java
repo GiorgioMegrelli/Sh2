@@ -7,7 +7,6 @@ import ge.sh2.core.console.style.ConsoleStyle;
 import ge.sh2.core.object.command.CommandObject;
 import ge.sh2.core.object.parameter.IParametersObject;
 import ge.sh2.utils.ArrayFunctions;
-import ge.sh2.utils.exception.UnknownCommand;
 
 public class Sh2Application {
 
@@ -31,7 +30,8 @@ public class Sh2Application {
         String commandName = args[0];
         CommandObject commandObject = commandsStore.get(commandName);
         if(commandObject == null) {
-            throw new UnknownCommand(commandName);
+            Sh2Context.getErrIO().println("Unknown command: " + commandName);
+            return;
         }
 
         IParametersObject parameters = commandObject.getParametersObject();

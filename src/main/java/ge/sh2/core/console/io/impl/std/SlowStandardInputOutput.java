@@ -1,4 +1,7 @@
-package ge.sh2.core.console.io;
+package ge.sh2.core.console.io.impl.std;
+
+import ge.sh2.core.console.io.InputOutput;
+import ge.sh2.core.console.io.impl.AbstractInputOutput;
 
 public class SlowStandardInputOutput extends AbstractInputOutput {
 

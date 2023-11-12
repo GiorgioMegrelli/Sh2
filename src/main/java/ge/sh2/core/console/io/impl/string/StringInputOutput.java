@@ -1,4 +1,6 @@
-package ge.sh2.core.console.io;
+package ge.sh2.core.console.io.impl.string;
+
+import ge.sh2.core.console.io.impl.AbstractInputOutput;
 
 public class StringInputOutput extends AbstractInputOutput {
 

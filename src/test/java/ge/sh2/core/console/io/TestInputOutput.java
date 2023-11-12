@@ -1,5 +1,8 @@
 package ge.sh2.core.console.io;
 
+import ge.sh2.core.console.io.impl.std.StandardInputOutput;
+import ge.sh2.core.console.io.impl.std.StandardOutputFactory;
+import ge.sh2.core.console.io.impl.string.StringInputOutput;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

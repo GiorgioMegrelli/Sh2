@@ -1,5 +1,6 @@
-package ge.sh2.core.console.io;
+package ge.sh2.core.console.io.impl;
 
+import ge.sh2.core.console.io.InputOutput;
 import ge.sh2.utils.exception.NotImplementedException;
 import jdk.jshell.spi.ExecutionControl;
 

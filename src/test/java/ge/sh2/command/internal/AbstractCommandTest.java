@@ -3,7 +3,7 @@ package ge.sh2.command.internal;
 import ge.sh2.core.Sh2Context;
 import ge.sh2.core.command.CommandInvokable;
 import ge.sh2.core.console.io.InputOutput;
-import ge.sh2.core.console.io.StringInputOutput;
+import ge.sh2.core.console.io.impl.string.StringInputOutput;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
