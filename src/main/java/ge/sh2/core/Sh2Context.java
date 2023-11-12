@@ -35,6 +35,7 @@ public class Sh2Context {
 
     public static void restore() {
         IO_INSTANCE = IO_INSTANCE_DEFAULT;
+        ERR_IO_INSTANCE = ERR_IO_INSTANCE_DEFAULT;
     }
 
     public static ICommandsStore getCommands() {
@@ -55,6 +56,14 @@ public class Sh2Context {
 
     public static void setErrIO(InputOutput io) {
         ERR_IO_INSTANCE = io;
+    }
+
+    public static void use(ContextClosure contextClosure) throws Exception {
+        try {
+            contextClosure.run();
+        } finally {
+            restore();
+        }
     }
 
 }
