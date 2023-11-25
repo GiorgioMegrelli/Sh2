@@ -16,7 +16,7 @@ Compile the project:
 The Sh2 jar is available in dir `build/libs/`. To run the jar use:
 
 ```shell
-java -jar build/libs/Sh2-<version>-all.jar
+java -jar build/libs/Sh2-<version>.jar
 ```
 
 You should see the output:
@@ -43,7 +43,7 @@ You should see the output:
 
 To see all available commands run:
 ```shell
-java -jar build/libs/Sh2-<version>-all.jar help -all
+java -jar build/libs/Sh2-<version>.jar help -all
 ```
 
 ### How to register a command
