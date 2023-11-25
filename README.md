@@ -105,8 +105,9 @@ class YourCommandParameters extends ParametersWithArguments {
 ### TODO List
 
 - [ ] Updated algorithm to find setters and getters
+- [ ] Add custom command arguments parser
 - [ ] Add new commands
-- [ ] Improve code quality
+- [ ] Improve code quality (should be always always here...)
 - [ ] Add CLI mode
 
 ## Project is really WELCOME for modifications
