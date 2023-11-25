@@ -1,5 +1,10 @@
 package ge.sh2.utils;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
 public class Strings {
 
     public static final String TAB = "    ";
@@ -100,6 +105,23 @@ public class Strings {
             return str.toUpperCase();
         }
         return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+    }
+
+    public static String readStream(InputStream stream) throws IOException {
+        return readStreamAsBytes(stream).toString(StandardCharsets.UTF_8);
+    }
+
+    public static ByteArrayOutputStream readStreamAsBytes(InputStream stream) throws IOException {
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        while(true) {
+            int len = stream.read(buffer);
+            result.write(buffer, 0, len);
+            if(len < buffer.length) {
+                break;
+            }
+        }
+        return result;
     }
 
 }

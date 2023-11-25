@@ -1,6 +1,6 @@
 package ge.sh2.core;
 
-import ge.sh2.core.command.CommandLoader;
+import ge.sh2.core.command.loader.CommandLoader;
 import ge.sh2.core.command.store.CommandsStore;
 import ge.sh2.core.command.store.ICommandsStore;
 import ge.sh2.core.command.store.UnmodifiableCommandsStore;

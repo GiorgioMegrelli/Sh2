@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+    <command-groups>
+        <internal>
+            <group>ge.sh2.command.internal</group>
+        </internal>
+        <custom>
+            <group>ge.sh2.command.custom</group>
+        </custom>
+    </command-groups>
+</commands>

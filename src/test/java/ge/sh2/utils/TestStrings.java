@@ -2,10 +2,32 @@ package ge.sh2.utils;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import static ge.sh2.utils.Strings.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestStrings {
+
+    private static class StringInputSteam extends InputStream {
+        private final String data;
+        private int index = 0;
+
+        public StringInputSteam(String data) {
+            this.data = data;
+        }
+
+        @Override
+        public int read() throws IOException {
+            if(index >= data.length()) {
+                throw new IOException();
+            }
+            int ch = (int) data.charAt(index);
+            this.index++;
+            return ch;
+        }
+    }
 
     @Test
     public void testReplaceAll() {
@@ -54,6 +76,16 @@ public class TestStrings {
         assertEquals("Hello", padEnd("Hello", " ", 4));
         assertEquals("   ", padEnd("", " ", 3));
         assertEquals("abc  ", padEnd("abc", " ", 5));
+    }
+
+    @Test
+    public void testReadStream() throws IOException {
+        String testData = "test data";
+        try(InputStream inputStream = new StringInputSteam(testData)) {
+            String result = readStream(inputStream);
+
+            assertEquals(testData, result);
+        }
     }
 
 }
