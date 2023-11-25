@@ -3,6 +3,7 @@ package ge.sh2.command.internal;
 import ge.sh2.command.internal.help.CmdListParameters;
 import ge.sh2.command.internal.help.CommandList;
 import ge.sh2.core.annotation.Command;
+import ge.sh2.core.context.Sh2Context;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -27,34 +28,42 @@ public class TestCommandList extends AbstractCommandTest {
 
     @Test
     public void test() throws Exception {
-        CommandList help = new CommandList();
+        Sh2Context.IO().use((io) -> {
+            io.setOut(testIO);
 
-        Assertions.assertThrowsExactly(NullPointerException.class, help::invoke);
+            CommandList help = new CommandList();
 
-        Assertions.assertTrue(setParameters(help, new CmdListParameters()));
+            Assertions.assertThrowsExactly(NullPointerException.class, help::invoke);
 
-        help.invoke();
+            Assertions.assertTrue(setParameters(help, new CmdListParameters()));
 
-        String helpString = getTestIO().toString().toLowerCase();
-        Assertions.assertFalse(helpString.contains(CMD_LIST_NAME));
-        Assertions.assertFalse(helpString.contains(HELP_NAME));
+            help.invoke();
+
+            String helpString = testIO.toString().toLowerCase();
+            Assertions.assertFalse(helpString.contains(CMD_LIST_NAME));
+            Assertions.assertFalse(helpString.contains(HELP_NAME));
+        });
     }
 
     @Test
     public void testAll() throws Exception {
-        CmdListParameters parameters = new CmdListParameters();
-        CommandList help = new CommandList();
+        Sh2Context.IO().use((io) -> {
+            io.setOut(testIO);
 
-        Assertions.assertThrowsExactly(NullPointerException.class, help::invoke);
+            CmdListParameters parameters = new CmdListParameters();
+            CommandList help = new CommandList();
 
-        Assertions.assertTrue(setParameters(help, parameters));
+            Assertions.assertThrowsExactly(NullPointerException.class, help::invoke);
 
-        parameters.setAll(true);
-        help.invoke();
+            Assertions.assertTrue(setParameters(help, parameters));
 
-        String helpString = getTestIO().toString().toLowerCase();
-        Assertions.assertTrue(helpString.contains(CMD_LIST_NAME));
-        Assertions.assertTrue(helpString.contains(HELP_NAME));
+            parameters.setAll(true);
+            help.invoke();
+
+            String helpString = testIO.toString().toLowerCase();
+            Assertions.assertTrue(helpString.contains(CMD_LIST_NAME));
+            Assertions.assertTrue(helpString.contains(HELP_NAME));
+        });
     }
 
 }

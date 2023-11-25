@@ -4,6 +4,7 @@ import ge.sh2.command.internal.help.CmdListParameters;
 import ge.sh2.command.internal.help.Help;
 import ge.sh2.command.internal.help.HelpParameters;
 import ge.sh2.core.annotation.Command;
+import ge.sh2.core.context.Sh2Context;
 import ge.sh2.utils.Strings;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -36,37 +37,43 @@ public class TestHelp extends AbstractCommandTest {
 
     @Test
     public void test() throws Exception {
-        Help help = new Help();
+        Sh2Context.IO().use((io) -> {
+            io.setOut(testIO);
+            Help help = new Help();
 
-        Assertions.assertThrowsExactly(NullPointerException.class, help::invoke);
+            Assertions.assertThrowsExactly(NullPointerException.class, help::invoke);
 
-        Assertions.assertTrue(setParameters(help, new HelpParameters()));
+            Assertions.assertTrue(setParameters(help, new HelpParameters()));
 
-        help.invoke();
+            help.invoke();
 
-        String helpString = getTestIO().toString().toLowerCase();
-        Assertions.assertFalse(helpString.contains(CMD_LIST_NAME));
-        Assertions.assertFalse(helpString.contains(HELP_NAME));
-        Assertions.assertEquals(0, Strings.countMatches(helpString, HELP_PARAMS_FULL_NAME));
+            String helpString = testIO.toString().toLowerCase();
+            Assertions.assertFalse(helpString.contains(CMD_LIST_NAME));
+            Assertions.assertFalse(helpString.contains(HELP_NAME));
+            Assertions.assertEquals(0, Strings.countMatches(helpString, HELP_PARAMS_FULL_NAME));
+        });
     }
 
     @Test
     public void testAll() throws Exception {
-        HelpParameters parameters = new HelpParameters();
-        Help help = new Help();
+        Sh2Context.IO().use((io) -> {
+            io.setOut(testIO);
+            HelpParameters parameters = new HelpParameters();
+            Help help = new Help();
 
-        Assertions.assertThrowsExactly(NullPointerException.class, help::invoke);
+            Assertions.assertThrowsExactly(NullPointerException.class, help::invoke);
 
-        Assertions.assertTrue(setParameters(help, parameters));
+            Assertions.assertTrue(setParameters(help, parameters));
 
-        parameters.setAll(true);
-        help.invoke();
+            parameters.setAll(true);
+            help.invoke();
 
-        String helpString = getTestIO().toString().toLowerCase();
-        Assertions.assertTrue(helpString.contains(CMD_LIST_NAME));
-        Assertions.assertTrue(helpString.contains(HELP_NAME));
-        Assertions.assertEquals(1, Strings.countMatches(helpString, HELP_PARAMS_FULL_NAME));
-        Assertions.assertEquals(1, Strings.countMatches(helpString, CMD_PARAMS_FULL_NAME));
+            String helpString = testIO.toString().toLowerCase();
+            Assertions.assertTrue(helpString.contains(CMD_LIST_NAME));
+            Assertions.assertTrue(helpString.contains(HELP_NAME));
+            Assertions.assertEquals(1, Strings.countMatches(helpString, HELP_PARAMS_FULL_NAME));
+            Assertions.assertEquals(1, Strings.countMatches(helpString, CMD_PARAMS_FULL_NAME));
+        });
     }
 
 }

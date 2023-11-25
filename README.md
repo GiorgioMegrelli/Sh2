@@ -86,8 +86,8 @@ public class YourCommand implements CommandInvokable {
     @Override
     public void invoke() throws Exception {
         String option = parameters.getOption();
-        // Use Sh2Context.getIO() to print the data you want
-        Sh2Context.getIO().println(option);
+        // Use Sh2Context.IO().out() to print the data you want
+        Sh2Context.IO().out().println(option);
     }
 }
 ```

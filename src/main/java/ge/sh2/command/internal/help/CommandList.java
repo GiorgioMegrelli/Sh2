@@ -1,6 +1,6 @@
 package ge.sh2.command.internal.help;
 
-import ge.sh2.core.Sh2Context;
+import ge.sh2.core.context.Sh2Context;
 import ge.sh2.core.annotation.Command;
 import ge.sh2.core.annotation.Parameters;
 import ge.sh2.core.command.CommandInvokable;
@@ -24,7 +24,7 @@ public class CommandList implements CommandInvokable {
         }
 
         for(CommandObject command: commands) {
-            Sh2Context.getIO().println(command.getName());
+            Sh2Context.IO().out().println(command.getName());
         }
     }
 

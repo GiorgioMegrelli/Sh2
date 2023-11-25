@@ -1,6 +1,6 @@
 package ge.sh2.command.custom.cat;
 
-import ge.sh2.core.Sh2Context;
+import ge.sh2.core.context.Sh2Context;
 import ge.sh2.core.command.CommandInvokable;
 import ge.sh2.core.annotation.Command;
 import ge.sh2.core.annotation.Parameters;
@@ -36,7 +36,7 @@ public class Cat implements CommandInvokable {
                 if(readN < BUFFER_SIZE) {
                     data = Arrays.copyOf(data, readN);
                 }
-                Sh2Context.getIO().print(data);
+                Sh2Context.IO().out().print(data);
                 if(readN < BUFFER_SIZE) {
                     break;
                 }

@@ -1,6 +1,6 @@
 package ge.sh2.command.custom.find;
 
-import ge.sh2.core.Sh2Context;
+import ge.sh2.core.context.Sh2Context;
 import ge.sh2.core.command.CommandInvokable;
 import ge.sh2.core.annotation.Command;
 import ge.sh2.core.annotation.Parameters;
@@ -31,7 +31,7 @@ public class Find implements CommandInvokable {
     public void invoke() throws Exception {
         String[] arguments = parameters.getArguments();
         if(arguments == null || arguments.length == 0) {
-            Sh2Context.getIO().println("No Arguments");
+            Sh2Context.IO().err().println("No Arguments");
             return;
         }
 
@@ -39,7 +39,7 @@ public class Find implements CommandInvokable {
         Collection<File> files = FileUtils.listFiles(root, getFileFilter(), TrueFileFilter.INSTANCE);
         for(File file: files) {
             String absName = FilenameUtils.normalize(file.getAbsolutePath());
-            Sh2Context.getIO().println(absName);
+            Sh2Context.IO().err().println(absName);
         }
     }
 

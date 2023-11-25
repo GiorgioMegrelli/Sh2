@@ -1,6 +1,6 @@
 package ge.sh2.command.internal.help;
 
-import ge.sh2.core.Sh2Context;
+import ge.sh2.core.context.Sh2Context;
 import ge.sh2.core.command.CommandInvokable;
 import ge.sh2.core.annotation.Command;
 import ge.sh2.core.annotation.Parameters;
@@ -133,7 +133,7 @@ public class Help implements CommandInvokable {
                 }
             }
         }
-        Sh2Context.getIO().print(sb);
+        Sh2Context.IO().out().print(sb);
     }
 
 }

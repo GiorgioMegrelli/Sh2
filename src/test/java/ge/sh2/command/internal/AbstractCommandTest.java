@@ -1,26 +1,16 @@
 package ge.sh2.command.internal;
 
-import ge.sh2.core.Sh2Context;
-import ge.sh2.core.command.CommandInvokable;
-import ge.sh2.core.console.io.InputOutput;
 import ge.sh2.core.console.io.impl.string.StringInputOutput;
-import org.junit.jupiter.api.AfterEach;
+import ge.sh2.core.command.CommandInvokable;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class AbstractCommandTest {
 
+    protected final StringInputOutput testIO = new StringInputOutput();
+
     @BeforeEach
-    public void preTest() {
-        Sh2Context.setIO(new StringInputOutput());
-    }
-
-    @AfterEach
     public void postTest() {
-        Sh2Context.restore();
-    }
-
-    protected InputOutput getTestIO() {
-        return Sh2Context.getIO();
+        testIO.clear();
     }
 
     protected static boolean hasCommandInvokable(Class<?> cls) {
