@@ -69,7 +69,7 @@ public class Help implements CommandInvokable {
                     .toList();
 
             sb.tab(2)
-                    .plus("Arguments: ", CommonStyles.ITALICS)
+                    .plus("Has Arguments: ", CommonStyles.ITALICS)
                     .plus(String.valueOf(parametersObject.hasArguments()))
                     .newLine();
 

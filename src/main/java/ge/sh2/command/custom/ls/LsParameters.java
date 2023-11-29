@@ -14,7 +14,7 @@ public class LsParameters extends ParametersWithArguments {
         return detailed;
     }
 
-    public void setDetails(boolean detailed) {
+    public void setDetailed(boolean detailed) {
         this.detailed = detailed;
     }
 

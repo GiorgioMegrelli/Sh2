@@ -61,9 +61,9 @@ public class Ls implements CommandInvokable {
         StringBuilder columns = new StringBuilder();
         columns.append("Name");
         if(parameters.isDetailed()) {
-            columns.append(" ".repeat(maxLength - 5));
+            columns.append(" ".repeat(maxLength - 4));
             columns.append("Type");
-            columns.append(" ".repeat(6));
+            columns.append(" ".repeat(5));
             columns.append("Size    Mode");
             if(parameters.isContentSize()) {
                 columns.append("  Content_Size");
