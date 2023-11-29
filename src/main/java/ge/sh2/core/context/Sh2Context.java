@@ -6,7 +6,7 @@ import ge.sh2.core.command.store.ICommandsStore;
 import ge.sh2.core.command.store.UnmodifiableCommandsStore;
 import ge.sh2.core.context.io.StandardSh2ContextIO;
 import ge.sh2.core.context.io.Sh2ContextIO;
-import ge.sh2.utils.exception.Sh2RuntimeException;
+import ge.sh2.exception.Sh2RuntimeException;
 
 public class Sh2Context {
 

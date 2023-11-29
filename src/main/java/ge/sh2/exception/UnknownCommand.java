@@ -1,4 +1,4 @@
-package ge.sh2.utils.exception;
+package ge.sh2.exception;
 
 public class UnknownCommand extends Sh2Exception {
 

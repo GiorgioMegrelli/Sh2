@@ -1,7 +1,7 @@
 package ge.sh2.core.command.store;
 
 import ge.sh2.core.object.command.CommandObject;
-import ge.sh2.utils.exception.CommandNameDuplicateException;
+import ge.sh2.exception.CommandNameDuplicateException;
 
 import java.util.HashMap;
 import java.util.Iterator;

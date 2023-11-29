@@ -8,7 +8,7 @@ import ge.sh2.core.object.parameter.IParametersObject;
 import ge.sh2.core.object.parameter.ParameterFieldWrapper;
 import ge.sh2.utils.Annotations;
 import ge.sh2.utils.Strings;
-import ge.sh2.utils.exception.BadStructureCommandException;
+import ge.sh2.exception.BadStructureCommandException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

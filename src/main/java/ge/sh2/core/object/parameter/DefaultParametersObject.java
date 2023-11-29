@@ -5,7 +5,7 @@ import ge.sh2.core.parameters.GetterAndSetter;
 import ge.sh2.core.parameters.ParametersUtils;
 import ge.sh2.utils.MethodUtils;
 import ge.sh2.utils.Types;
-import ge.sh2.utils.exception.ParsingException;
+import ge.sh2.exception.ParsingException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
