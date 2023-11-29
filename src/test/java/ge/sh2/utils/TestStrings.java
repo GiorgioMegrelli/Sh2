@@ -30,12 +30,24 @@ public class TestStrings {
     }
 
     @Test
-    public void testReplaceAll() {
+    public void testReplaceAllChar() {
         assertEquals("", replaceAll("", 'a', 'b'));
         assertEquals("bbb", replaceAll("aaa", 'a', 'b'));
         assertEquals("aaa", replaceAll("aaa", 'c', 'd'));
         assertEquals("a/b/c", replaceAll("a.b.c", '.', '/'));
         assertEquals("ა-ბ-გ-დ", replaceAll("ა/ბ/გ/დ", '/', '-'));
+    }
+
+    @Test
+    public void testReplaceAllString() {
+        assertEquals("", replaceAll("", "b", "c"));
+        assertEquals("aaa", replaceAll("", "", "aaa"));
+        assertEquals("a", replaceAll("a", "b", "c"));
+        assertEquals("b", replaceAll("a", "a", "b"));
+        assertEquals("bbb", replaceAll("aaa", "a", "b"));
+        assertEquals("bbbb", replaceAll("aaaa", "aa", "bb"));
+        assertEquals("bbbbbbcc", replaceAll("aacc", "a", "bbb"));
+        assertEquals("bbbbccc", replaceAll("aaaaccc", "aa", "bb"));
     }
 
     @Test

@@ -25,14 +25,32 @@ public class Strings {
     }
 
     public static String replaceAll(String str, char oldChar, char newChar) {
-        if(oldChar == newChar) {
+        return replaceAll(str, String.valueOf(oldChar), String.valueOf(newChar));
+    }
+
+    public static String replaceAll(String str, String oldStr, String newStr) {
+        if(str.isEmpty()) {
+            if(oldStr.isEmpty()) {
+                return newStr;
+            }
+            return str;
+        } else if(oldStr.equals(newStr)) {
             return str;
         }
 
-        StringBuilder sb = new StringBuilder(str.length());
-        for(int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            sb.append((ch == oldChar)? newChar: ch);
+        double scale = 1.0 * newStr.length() / oldStr.length();
+        int newSize = (int) Math.round(scale * str.length());
+        StringBuilder sb = new StringBuilder(newSize);
+        int prev = 0;
+        while(true) {
+            int ind = str.indexOf(oldStr, prev);
+            if(ind < 0) {
+                sb.append(str.substring(prev));
+                break;
+            }
+            sb.append(str, prev, ind);
+            sb.append(newStr);
+            prev = ind + oldStr.length();
         }
         return sb.toString();
     }
