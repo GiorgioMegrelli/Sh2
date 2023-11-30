@@ -6,7 +6,7 @@ import ge.sh2.core.console.style.CommonStyles;
 import ge.sh2.core.console.style.ConsoleStyle;
 import ge.sh2.core.object.command.CommandObject;
 import ge.sh2.core.object.parameter.IParametersObject;
-import ge.sh2.utils.ArrayFunctions;
+import ge.sh2.utils.ArrayUtils;
 
 public class Sh2Application {
 
@@ -36,7 +36,7 @@ public class Sh2Application {
 
         IParametersObject parameters = commandObject.getParametersObject();
 
-        args = ArrayFunctions.shift(args);
+        args = ArrayUtils.shift(args);
         Object params = parameters.parse(args);
         commandObject.run(params);
     }
