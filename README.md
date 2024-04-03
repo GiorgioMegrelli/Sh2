@@ -1,19 +1,17 @@
 # Sh2
 
-<b>Sh2 | Shori</b>
+<b>Sh2 | Shori - "Universal" Shell</b>
 
-<b>"Universal" Shell</b>
-
-The project for a fun and to learn java annotations better
+The project is for fun and to learn Java annotations better
 
 ### How to run
 
-Compile the project:
+To compile the project, run:
 ```shell
 ./gradlew clean build
 ```
 
-The Sh2 jar is available in dir `build/libs/`. To run the jar use:
+The Sh2 jar is available in the build directory: `build/libs/`. To run it, use:
 
 ```shell
 java -jar build/libs/Sh2-<version>.jar
@@ -62,7 +60,7 @@ public class YourCommand implements CommandInvokable {
 }
 ```
 
-If you want to use arguments and parameters in your command and a field of your parameters class and annotated it as following:
+If you want to use arguments and parameters in your command class, you muust add a field of your parameters class and annotate it. See an example:
 
 ```java
 public class YourCommandParameters {
@@ -91,23 +89,23 @@ public class YourCommand implements CommandInvokable {
     }
 }
 ```
-Sh2 will insert parsed parameters class before `invoke()` method is run so you can use it in this method.
-If you want to use arguments in you command class add `public String[] getArguments()` and `public void setArguments(String[])`
-methods in parameters' class or simply do it:
+Sh2 will insert parsed parameters object before `invoke()` method is called, so you will be able to use it within your command.
+If you want to use arguments in you command class add this getter and setter: `public String[] getArguments()` and `public void setArguments(String[])`
+methods in parameters' class. You can also do it simplier by this 'shortcut':
 ```java
 class YourCommandParameters extends ParametersWithArguments {
     // ...
 }
 ```
 
-<i>Check `src/main/java/ge/sh2/command/custom/` to see example and more details.</i>
+<i>Check `src/main/java/ge/sh2/command/custom/` to see examples and additional details.</i>
 
 ### TODO List
 
-- [ ] Updated algorithm to find setters and getters
+- [ ] Update algorithm of finding setters and getters
 - [ ] Add custom command arguments parser
 - [ ] Add new commands
-- [ ] Improve code quality (should be always always here...)
+- [ ] Improve code quality (should be always always here...:D)
 - [ ] Add CLI mode
 
-## Project is really WELCOME for modifications
+## Project is WELCOME for modifications
